@@ -1,0 +1,111 @@
+{% extends 'winedb/base.html' %}
+
+{% block content %}
+    <h2>Back to list</h2>
+    
+    <style>
+        table, th, td {
+          border: 0px solid black;
+          border-collapse: collapse;
+          padding-left: 5px;
+          padding-right: 5px;
+
+        }
+
+        tr:nth-child(even) {
+              background-color: #D6EEEE;
+            }
+        .unavailable:nth-child(even) {
+            background-color: #EEBBBB !important;
+            text-decoration: line-through;
+                    }
+        .unavailable:nth-child(odd) {
+            background-color: #EEA0A0 !important;
+            text-decoration: line-through;
+                    }
+</style>
+
+<table style="border:1; border-color:black;">
+    <tr>
+        <td>Producer </td>
+        <td>{{ wine.producer }} </td>
+    </tr>
+    <tr>
+        <td>Name </td>
+        <td>{{ wine.name }} </td>
+    </tr>
+    <tr>
+        <td>Country </td>
+        <td>{{ wine.country }} </td>
+    </tr>
+    <tr>
+        <td>Region </td>
+        <td>{{ wine.region }} </td>
+    </tr>
+    <tr>
+        <td>Year </td>
+        <td>{{ wine.year }} </td>
+    </tr>
+    <tr>
+        <td>Percentage </td>
+        <td>{{ wine.percentage }} </td>
+    </tr>
+    <tr>
+        <td>Grape </td>
+        <td>{{ wine.grape }} </td>
+    </tr>
+    <tr>
+        <td>Variety </td>
+        <td>{{ wine.variety }} </td>
+    </tr>
+    <tr>
+        <td>Notes </td>
+        <td>{{ wine.notes }} </td>
+    </tr>
+
+
+</table>
+
+<br>
+
+<h3> BOTTLES </h3>
+
+
+<table style="border:1; border-color:black;">
+    
+</style>
+    
+    <tr>
+        <th>Date Bought</th>
+        <th>Price</th>
+        <th>Date Drank</th>
+        <th>Notes</th>
+        
+    </tr>
+    {% for bottle in bottles %}
+
+        <tr class="{% if bottle.available is False %}unavailable{% endif %}">
+            <td>
+        {{ bottle.date_bought }}
+            </td>
+
+             <td>
+        {{ bottle.bottleprice }}
+            </td>
+
+            <td>
+        {{ bottle.drank_on }}
+            </td>
+
+            <td>
+        {{ bottle.notes }}
+            </td>
+
+        </tr>
+        
+    {% endfor %}
+
+</table>
+
+
+{% endblock %}

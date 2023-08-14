@@ -1,0 +1,47 @@
+{% extends 'winedb/base.html' %}
+
+{% block content %}
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+
+<table style="border:1; border-color:black;">
+    <tr>
+        <th>Producer</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>Region</th>
+        <th>Available Bottles</th>
+
+    </tr>
+    {% for wine in wines %}
+    <tr>
+        <td>
+            <a href="{% url 'wine_detail' pk=wine.pk %}"> {{ wine.producer }} </a>
+        </td>
+
+        <td>
+
+    {{ wine.name }}
+        </td>
+
+         <td>
+
+    {{ wine.country }}
+        </td>
+
+        <td>
+
+    {{ wine.region }}
+        </td>
+
+        <td>
+
+    {{ wine.available_bottle }}
+    </tr>
+    {% endfor %}
+
+{% endblock %}

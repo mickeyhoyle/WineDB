@@ -57,13 +57,13 @@ class Producer(models.Model):
 
 
 class Wine(models.Model):
-	producer = models.ForeignKey(Producer, null=True, blank=True, on_delete=models.CASCADE, default=1)
+	producer = models.ForeignKey(Producer, null=True, blank=True, on_delete=models.CASCADE, default=0)
 	name = models.CharField(max_length=200)
 	year = models.IntegerField(blank=True, null=True)
 	alcohol = models.IntegerField(blank=True, null=True)
-	grape = models.ForeignKey(Grape, null=True, blank=True, on_delete=models.CASCADE, default=1)
-	colour = models.ForeignKey(Colour, null=True, blank=True, on_delete=models.CASCADE, default=1)
-	wine_type = models.ForeignKey(WineType, null=True, blank=True, on_delete=models.CASCADE, default=1)
+	grape = models.ForeignKey(Grape, null=True, blank=True, on_delete=models.CASCADE, default=0)
+	colour = models.ForeignKey(Colour, null=True, blank=True, on_delete=models.CASCADE, default=0)
+	wine_type = models.ForeignKey(WineType, null=True, blank=True, on_delete=models.CASCADE, default=0)
 	notes = models.TextField(max_length=2000, blank=True, null=True)
 	
 

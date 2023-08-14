@@ -36,11 +36,11 @@
     </tr>
     <tr>
         <td>Country </td>
-        <td>{{ wine.country }} </td>
+        <td>{{ wine.producer.referring_producer_country }} </td>
     </tr>
     <tr>
         <td>Region </td>
-        <td>{{ wine.region }} </td>
+        <td>{{ wine.producer.referring_producer_region }} </td>
     </tr>
     <tr>
         <td>Year </td>
@@ -48,7 +48,7 @@
     </tr>
     <tr>
         <td>Percentage </td>
-        <td>{{ wine.percentage }} </td>
+        <td>{{ wine.alcohol }} </td>
     </tr>
     <tr>
         <td>Grape </td>
@@ -56,11 +56,11 @@
     </tr>
     <tr>
         <td>Variety </td>
-        <td>{{ wine.variety }} </td>
+        <td>{{ wine.wine_type.referring_wine_type }} </td>
     </tr>
     <tr>
         <td>Notes </td>
-        <td>{{ wine.notes }} </td>
+        <td>{{ wine.notes|linebreaks }} </td>
     </tr>
 
 

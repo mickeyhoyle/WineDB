@@ -61,10 +61,11 @@ class Wine(models.Model):
 	name = models.CharField(max_length=200)
 	year = models.IntegerField(blank=True, null=True)
 	alcohol = models.FloatField(blank=True, null=True)
-	grape = models.ForeignKey(Grape, null=True, blank=True, on_delete=models.CASCADE, default=0)
+	grape = models.ManyToManyField(Grape)
 	colour = models.ForeignKey(Colour, null=True, blank=True, on_delete=models.CASCADE, default=0)
 	wine_type = models.ForeignKey(WineType, null=True, blank=True, on_delete=models.CASCADE, default=0)
 	notes = models.TextField(max_length=2000, blank=True, null=True)
+	wishlist = models.BooleanField(default=False)
 	
 
 	def __str__(self):
@@ -85,7 +86,7 @@ class Wine(models.Model):
 
 class Bottle(models.Model):
 	wine = models.ForeignKey(Wine, related_name='Bottle', on_delete=models.CASCADE)
-	date_bought = models.DateField(blank=True, null=True)
+	date_bought = models.DateField(null=True)
 	bottleprice = models.CharField(max_length=200, blank=True,)
 	#notes = models.TextField(max_length=2000, blank=True, null=True)
 	available = models.BooleanField(default=True)

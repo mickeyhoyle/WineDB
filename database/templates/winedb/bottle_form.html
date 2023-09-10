@@ -2,14 +2,17 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <h2>New wine</h2>
+    <h2>New Bottle</h2>
     <form method="POST" class="post-form">{% csrf_token %}
-        {{ form|crispy }}
+        {% for form in formset%}
+            {{ form }}
+            <hr>
+        {% endfor %}
         <button type="submit" class="save btn btn-secondary">Save</button>
     </form>
 {% endblock %}
 
-{% block script %}
+<!-- {% block script %}
 
 
 <script>
@@ -17,4 +20,4 @@
     $("#id_grape").select2();
 </script>
 
-{% endblock %}
+{% endblock %} -->

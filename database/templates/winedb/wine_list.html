@@ -2,25 +2,22 @@
 
 {% block content %}
 <style>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
+
 </style>
 
-<table style="border:1; border-color:black;">
+<table class="table table-striped">
     <tr>
-        <th>Producer</th>
-        <th>Name</th>
-        <th>Country</th>
-        <th>Region</th>
-        <th>Available Bottles</th>
+        <th scope="col">Producer</th>
+        <th scope="col">Name</th>
+        <th scope="col">Country</th>
+        <th scope="col">Region</th>
+        <th scope="col">Available Bottles</th>
 
     </tr>
     {% for wine in wines %}
     <tr>
         <td>
-            <a href="{% url 'wine_detail' pk=wine.pk %}"> {{ wine.producer }} </a>
+            <a href="{% url 'wine_detail' wine.id %}"> {{ wine.producer }} </a>
         </td>
 
         <td>
@@ -30,12 +27,12 @@ table, th, td {
 
          <td>
 
-    {{ wine.country }}
+    {{ wine.producer.referring_producer_country }}
         </td>
 
         <td>
 
-    {{ wine.region }}
+    {{ wine.producer.referring_producer_region }}
         </td>
 
         <td>

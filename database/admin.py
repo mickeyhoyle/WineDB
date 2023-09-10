@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db import models
 from django.db.models import Q, Count
 from .models import *
-from django.forms import SelectMultiple
+from django.forms import SelectMultiple, CheckboxSelectMultiple
 from django.contrib.admin.widgets import AutocompleteSelect
 
 
@@ -15,6 +15,10 @@ class BottleInline(admin.TabularInline):
 
 class WineAdmin(admin.ModelAdmin):
 	list_display = ['producer', 'name', 'bottle_count', 'available_bottle']
+	formfield_overrides = {
+		models.ManyToManyField: {'widget': CheckboxSelectMultiple},
+
+	}
 	inlines = [BottleInline]
 	fields = (
         'producer', 
@@ -27,7 +31,8 @@ class WineAdmin(admin.ModelAdmin):
         'notes',
         
     )
-
+	
+    
 	def save_model(self, request, obj, form, change):
 		obj.author = request.user
 		super().save_model(request, obj, form, change)

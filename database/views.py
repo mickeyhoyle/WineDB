@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from .forms import WineForm
+from .forms import WineForm, BottleForm
+from django.forms import inlineformset_factory
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Wine, Bottle, WineType, Country
 
@@ -13,16 +14,40 @@ def wine_list(request):
 	}
 	return render(request, 'winedb/wine_list.html', context)
 
-def wine_new(request):
-	form = WineForm()
-	return render(request, 'winedb/wine_edit.html', {'form': form})
-
 def wine_detail(request, pk):
-	wine = get_object_or_404(Wine, pk=pk)
+	wine = get_object_or_404(Wine, id=pk)
 	bottles = wine.Bottle.all()
 	context = {'wine': wine,
 	'bottles': bottles}
 	return render(request, 'winedb/wine_detail.html', context)
+
+
+def add_new_bottle(request, pk):
+	WineFormSet = inlineformset_factory(Wine, Bottle, fields=('date_bought', 'bottleprice', 'available', 'drank_on'))
+	wine = Wine.objects.get(id=pk)
+	formset = WineFormSet(instance=wine)
+	form = BottleForm(initial={'wine':wine})
+	if request.method == "POST":
+		form = BottleForm(request.POST)
+		if form.is_valid():
+			wine = form.save(commit=False)
+			wine.save()
+			return redirect('/')
+
+	context = {'formset':formset}
+	return render(request, 'winedb/bottle_form.html', context)
+
+def add_new_wine(request):
+	if request.method == "POST":
+		form = WineForm(request.POST)
+		if form.is_valid():
+			wine = form.save(commit=False)
+			wine.save()
+			return redirect('wine_detail', id=wine.pk)
+	else:
+		form = WineForm()
+	return render(request, 'winedb/wine_edit.html', {'form': form})
+
 
 
 # def bottle_count(self, obj):

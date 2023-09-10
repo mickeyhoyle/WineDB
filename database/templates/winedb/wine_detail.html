@@ -3,7 +3,7 @@
 {% block content %}
     <h2>Back to list</h2>
     
-    <style>
+    <!-- <style>
         table, th, td {
           border: 0px solid black;
           border-collapse: collapse;
@@ -24,8 +24,8 @@
             text-decoration: line-through;
                     }
 </style>
-
-<table style="border:1; border-color:black;">
+ -->
+<table class="table table-striped">
     <tr>
         <td>Producer </td>
         <td>{{ wine.producer }} </td>
@@ -52,7 +52,7 @@
     </tr>
     <tr>
         <td>Grape </td>
-        <td>{{ wine.grape }} </td>
+        <td>{% for grape in wine.grape.all %}{{ grape }}{% if not forloop.last %}, {% endif %} {% endfor %}</td>
     </tr>
     <tr>
         <td>Variety </td>
@@ -69,9 +69,10 @@
 <br>
 
 <h3> BOTTLES </h3>
+    <a class="btn btn-outline-info btn-sm btn-block" href="{% url 'add_new_bottle' wine.id %}">ADD NEW BOTTLE</a>
+    <br><br>
 
-
-<table style="border:1; border-color:black;">
+<table class="table table-striped">
     
 </style>
     
@@ -84,7 +85,7 @@
     </tr>
     {% for bottle in bottles %}
 
-        <tr class="{% if bottle.available is False %}unavailable{% endif %}">
+        <tr class="{% if bottle.available is False %}table-danger{% endif %}">
             <td>
         {{ bottle.date_bought }}
             </td>

@@ -23,7 +23,7 @@ class BottleForm(forms.ModelForm):
 
         widgets= {
             'date_bought': forms.DateInput(
-                attrs={'class':'date-picker'}), 
+                attrs={'type':'date'}), 
         }
 
 # class BottleForm(forms.Form):

@@ -11,7 +11,12 @@ class WineForm(forms.ModelForm):
 
     class Meta:
         model = Wine
-        fields = ('producer', 'name', 'year', 'alcohol', 'grape', 'colour', 'wine_type', 'notes', 'wishlist')
+        fields = ('producer', 'name', 'year', 'alcohol', 'grape', 'colour', 'wine_type', 'notes', 'wishlist', 'date')
+
+        widgets= {
+            'date': forms.DateInput(
+                attrs={'type':'date'}), 
+        }
 
 class BottleForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

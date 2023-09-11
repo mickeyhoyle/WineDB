@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from django import forms
+from datetime import datetime
 from .forms import WineForm, BottleForm
 from django.forms import inlineformset_factory
 from django.views.generic import ListView, DetailView, CreateView
@@ -23,10 +25,17 @@ def wine_detail(request, pk):
 
 
 def add_new_bottle(request, pk):
-	WineFormSet = inlineformset_factory(Wine, Bottle, fields=('date_bought', 'bottleprice', 'available', 'drank_on'))
+	WineFormSet = inlineformset_factory(Wine, Bottle, 
+		fields=('date_bought', 'bottleprice', 'available', 'drank_on'), 
+		widgets= {
+            'date_bought': forms.DateInput(
+                attrs={'type':'date'}),
+                'drank_on': forms.DateInput(
+                attrs={'type':'date'}) 
+        })
 	wine = Wine.objects.get(id=pk)
 	formset = WineFormSet(instance=wine)
-	form = BottleForm(initial={'wine':wine})
+	# form = BottleForm(initial={'wine':wine})
 	if request.method == "POST":
 		form = BottleForm(request.POST)
 		if form.is_valid():

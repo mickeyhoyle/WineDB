@@ -66,6 +66,7 @@ class Wine(models.Model):
 	wine_type = models.ForeignKey(WineType, null=True, blank=True, on_delete=models.CASCADE, default=0)
 	notes = models.TextField(max_length=2000, blank=True, null=True)
 	wishlist = models.BooleanField(default=False)
+	date = models.DateField(blank=True, null=True)
 	
 
 	def __str__(self):
